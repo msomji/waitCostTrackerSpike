@@ -1,14 +1,43 @@
-<head>
-  <title>waitCostTracker</title>
-</head>
+<body style="padding-top: 70px">
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">ORSH!</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
 
-<body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
+                </ul>
+                {{>loginButtons}}
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>The Real Wait Cost Tracker</h1>
+                <p class="lead">How much money is your wasted time worth?</p>
+            </div>
+        </div>
+        <div class="row">
+            {{#if currentUser }}
+                {{>timers}}
+            {{/if}}
+        </div>
+    </div>
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
-</template>
+<template name="timers">
+    <div class="col-md-3 col-md-offset-3 text-center">
+        <button type="button" class="btn btn-success">Start Timer</button>
+    </div>
+    <div class="col-md-3 text-center">
+        <button type="button" class="btn btn-danger">Stop Timer</button>
+    </div>
+</template>   
+
