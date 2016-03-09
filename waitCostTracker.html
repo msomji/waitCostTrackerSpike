@@ -24,11 +24,14 @@
                 <p class="lead">How much money is your wasted time worth?</p>
             </div>
         </div>
-        <div class="row">
-            {{#if currentUser }}
-                {{>timers}}
-            {{/if}}
-        </div>
+        {{#if currentUser }}
+            <div class="row">
+                    {{>timers}}
+            </div>
+            <div class="row">
+                 {{> personallyWasted}}
+            </div>
+        {{/if}}
     </div>
 </body>
 
@@ -40,4 +43,10 @@
         <button type="button" class="btn btn-danger">Stop Timer</button>
     </div>
 </template>   
+
+<template name="personallyWasted">
+    <div class="text-center">
+        <h1>The total time you have wasted in this life is: {{totalWasted}} seconds</h1>    
+    </div>
+</template>
 

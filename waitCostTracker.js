@@ -20,6 +20,20 @@ if (Meteor.isClient) {
         }
     });
 
+    Template.personallyWasted.helpers({
+      totalWasted: function(){
+        allEntries = TimeData.find().fetch();
+        time = 0;
+        allEntries.forEach(function(event){
+          if (Meteor.userId() === event.userId){
+            time += event.timeElapsed != null ? event.timeElapsed : 0;
+          }
+        })
+        return time / 1000;
+      }
+
+    });
+
     Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
   });
