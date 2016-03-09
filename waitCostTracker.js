@@ -21,7 +21,16 @@ if (Meteor.isClient) {
     });
 
     Template.personallyWasted.helpers({
-      totalWasted: function(){
+      totalWasted: function() {
+        return totalWasted();
+      },
+      totalCost: function(){
+        return (totalWasted()/60)/60 * 50;
+      }
+
+    });
+
+    function totalWasted(){
         allEntries = TimeData.find().fetch();
         time = 0;
         allEntries.forEach(function(event){
@@ -31,8 +40,6 @@ if (Meteor.isClient) {
         })
         return time / 1000;
       }
-
-    });
 
     Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
