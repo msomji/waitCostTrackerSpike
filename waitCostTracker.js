@@ -8,6 +8,7 @@ if (Meteor.isClient) {
               TimeData.insert({ 
                 userId: Meteor.userId(),
                 userName: Meteor.user().userName,
+                teamName: Meteor.user().profile.team,
                 createdAt: currentTime
               });
             }
@@ -17,11 +18,12 @@ if (Meteor.isClient) {
 
         "click .btn-danger": function() {
           Meteor.call("updateTimeElapsed", Session.get("currentTime"));
+           Session.set("currentTime", null);
         }
     });
 
     Template.personallyWasted.helpers({
-      totalWasted: function(){
+      totalPersonalWasted: function(){
         allEntries = TimeData.find().fetch();
         time = 0;
         allEntries.forEach(function(event){
@@ -30,6 +32,20 @@ if (Meteor.isClient) {
           }
         })
         return time / 1000;
+      },
+      totalTeamWasted: function(){
+        allEntries = TimeData.find().fetch();
+        time = 0;
+        allEntries.forEach(function(event){
+          if (Meteor.user().profile.team === event.teamName){
+            time += event.timeElapsed != null ? event.timeElapsed : 0;
+          }
+        })
+        return time / 1000;
+      },
+
+      team: function(){
+        return Meteor.user().profile.team;
       }
     });
 }
@@ -47,6 +63,7 @@ Meteor.methods({
     timeElapsed = new Date() - findEvent.createdAt;
     TimeData.update({createdAt: createdAt}, {$set: {timeElapsed : timeElapsed}});
   }
+
 });
 
 if (Meteor.isServer) {
