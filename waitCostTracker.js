@@ -31,13 +31,15 @@ if (Meteor.isClient) {
         })
         return time / 1000;
       }
-
     });
-
-    Accounts.ui.config({
-    passwordSignupFields: "USERNAME_ONLY"
-  });
 }
+
+AccountsTemplates.addField({
+    _id: "team",
+    type: "text",
+    displayName: "Team Name",
+    required: true,
+});
 
 Meteor.methods({
   updateTimeElapsed : function(createdAt){
@@ -51,7 +53,6 @@ if (Meteor.isServer) {
     Meteor.startup(function() {
         // code to run on server at startup
     });
-
-
 }
+
 
